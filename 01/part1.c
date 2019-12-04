@@ -1,4 +1,5 @@
 // rocket counter fuel upper thing
+// input: Paste raw input into running program, end with EOF
 
 #include <stdio.h>
 #include <stdlib.h>

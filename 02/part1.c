@@ -1,4 +1,5 @@
 // run an intcode program and save the day!
+// input: <comma separated input from online>
 
 #include <stdio.h>
 #include <string.h>

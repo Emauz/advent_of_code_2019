@@ -1,5 +1,6 @@
 // rocket counter fuel upper thing
 // but this time it's part 2
+// input: paste newline separated input into running program
 
 #include <stdio.h>
 #include <stdlib.h>
