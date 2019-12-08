@@ -45,40 +45,6 @@ bool validatePassword(int password){
     return increasingOrder(passwordArray) && containsDouble(passwordArray);
 }
 
-/*
-bool validatePassword(int password){
-    int curNum;
-    int originalPassword = password;
-    int prevNum = 100;
-    int prevPrevNum = 100;
-    int validRepeating = 0;
-    bool repeating = false;
-    for(int i=0; i<6; i++){
-        curNum = password % 10;
-        if(curNum == prevNum && prevNum != prevPrevNum){
-            validRepeating++;
-            // puts("add");
-        }
-        if(curNum == prevNum && prevNum == prevPrevNum){
-            validRepeating--;
-            // puts("sub");
-        }
-        if(validRepeating > 0)// && curNum != prevNum)
-            repeating = true;
-        if(curNum > prevNum)
-            return false;
-        prevPrevNum = prevNum;
-        prevNum = curNum;
-        password = (password - curNum) / 10;
-    }
-    if(validRepeating > 0){
-        // printf("At end, found: %d\n", originalPassword);
-        repeating = true;
-    }
-    return repeating;
-}
-*/
-
 int main(int argc, char *argv[]){
     int begin = atoi(argv[1]);
     int end = atoi(argv[2]);
