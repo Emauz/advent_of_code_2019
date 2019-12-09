@@ -1,6 +1,6 @@
 // Eric Moss
 // Advent of code 2019
-// Day 5 part 1
+// Day 5 part 2
 
 // Run an intcode computer through a diagnostic program
 // input: <program>
