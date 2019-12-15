@@ -70,24 +70,15 @@ int calculateSignal(int *program, int sequence){
     FILE *input = tmpfile();
     FILE *output = tmpfile();
 
-    memcpy(copiedProgram, program, sizeof(int) * MAX_PROGRAM_LENGTH);
     prependInt(0, input);
-    prependInt(splitSequence[0], input);
-    runProgram(copiedProgram, input, output);
-    // run program linked together
-    for(int i=1; i<SERIES_LENGTH-1; i++){
-        input = freopen(NULL, "r", output);
-        prependInt(splitSequence[i], input);
+    // run series linked together
+    for(int i=0; i<SERIES_LENGTH; i++){
         output = tmpfile();
+        prependInt(splitSequence[i], input);
         memcpy(copiedProgram, program, sizeof(int) * MAX_PROGRAM_LENGTH);
         runProgram(copiedProgram, input, output);
+        input = freopen(NULL, "r", output);
     }
-    input = freopen(NULL, "r", output);
-    prependInt(splitSequence[SERIES_LENGTH-1], input);
-    output = tmpfile();
-
-    memcpy(copiedProgram, program, sizeof(int) * MAX_PROGRAM_LENGTH);
-    runProgram(copiedProgram, input, output);
     // get the result and return as integer
     output = freopen(NULL, "r", output);
     int signal;
