@@ -16,6 +16,10 @@
 // array[0] is the opcode, array[i] is the mode for argument i
 int *parseOpcode(int opcode){
     int *parsedOpcode = calloc(OPCODE_SIZE, sizeof(int));
+    if(opcode == 99){
+        parsedOpcode[0] = 99;
+        return parsedOpcode;
+    }
     parsedOpcode[0] = opcode % 100;
     opcode = (opcode - (opcode % 100)) / 100;
     for(int i=1; i<OPCODE_SIZE; i++){
@@ -35,11 +39,12 @@ int getVal(int program[], int target, int mode){
     }
 }
 
-void runProgram(int *program, FILE *input, FILE *output){
+void runProgram(Process *process, FILE *input, FILE *output){
     //puts("program starting");
-    int pc = 0;
+    int pc = process->pc;
+    int *program = process->program;
     int val1, val2, val3, result;
-    while(program[pc] != 99){
+    while(!process->terminated){
         int *opcode = parseOpcode(program[pc]);
         switch(opcode[0]){
             case 1:
@@ -65,8 +70,11 @@ void runProgram(int *program, FILE *input, FILE *output){
             case 4:
                 val1 = getVal(program, pc+1, opcode[1]);
                 fprintf(output, "%d\n", val1);
+                if(0==1)printf("%d\n", val1);
                 pc += 2;
-                break;
+                process->pc = pc;
+                return;
+                //break;
             case 5:
                 val1 = getVal(program, pc+1, opcode[1]);
                 val2 = getVal(program, pc+2, opcode[2]);
@@ -89,7 +97,15 @@ void runProgram(int *program, FILE *input, FILE *output){
                 program[program[pc+3]] = (val1 == val2) ? 1 : 0;
                 pc += 4;
                 break;
+            case 99:
+                process->terminated = true;
+                break;
+            default:
+                puts("Error: Invalid opcode");
+                exit(1);
         }
+        // update process block pc
+        process->pc = pc;
     }
 }
 
